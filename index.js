@@ -21,4 +21,13 @@ function scrollTransform(section) {
 
   // Move the carousel area to the left by the percentage of the scroll position
   carouselArea.style.transform = `translate3d(${-percentage}vw, 0, 0)`;
+
+  const activeIndicatorEl = document.querySelector(`.indicator-item[data-slide="${Math.round(percentage / 100)}"]`);
+  activeIndicatorEl.classList.add("active");
+  // Remove active class from all indicators except the active one
+  document.querySelectorAll(".indicator-item").forEach((indicator) => {
+    if (indicator !== activeIndicatorEl) {
+      indicator.classList.remove("active");
+    }
+  });
 }

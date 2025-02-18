@@ -44,3 +44,42 @@ body {
   object-fit: cover;
   object-position: center;
 }
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  width: 70%;
+  margin: auto;
+  gap: 12px;
+}
+
+.carousel-indicators .indicator-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  text-align: center;
+}
+
+.carousel-indicators .indicator-item .indicator {
+  height: 8px;
+  background-color: #c6c8c8;
+}
+
+.carousel-indicators .indicator-item .indicator-text {
+  color: #c6c8c8;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.carousel-indicators .active .indicator {
+  background-color: #f9ed24;
+}
+
+.carousel-indicators .active .indicator-text {
+  color: #000;
+}
