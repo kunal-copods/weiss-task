@@ -1,5 +1,9 @@
-const lgRangeCarouselStickySection = document.querySelectorAll(".lg-range-carousel-sticky");
 let IS_SCROLL_SNAPPING_ENABLED = true;
+let IS_AUTO_SCROLLING = false;
+const SCROLL_TRANSITION_DURATION = 0.7;
+const SCROLL_TRANSITION_TIMEOUT = SCROLL_TRANSITION_DURATION * 1000; // 700ms
+
+const lgRangeCarouselStickySection = document.querySelectorAll(".lg-range-carousel-sticky");
 
 // Scroll event listener for the sticky carousel
 window.addEventListener("scroll", (e) => {
@@ -10,7 +14,6 @@ window.addEventListener("scroll", (e) => {
   }
 });
 
-let IS_AUTO_SCROLLING = false;
 
 function scrollTransform(section) {
   const offsetTop = section?.parentElement?.offsetTop;
@@ -54,45 +57,29 @@ function scrollTransform(section) {
     
     return;
   } else {
-    carouselArea.style.transition = "transform 0.3s ease";
+    carouselArea.style.transition = `transform ${SCROLL_TRANSITION_DURATION}s ease`;
   }
-  
-  // If the carousel is already scrolling, don't scroll again
-  if (IS_AUTO_SCROLLING) {
-    return;
-  }
+
   
   console.log({percentage});
   // Snap to the first image
   if (percentage < 50) {
     smoothScrollToPercentage(0, carouselArea, offsetTop);
-    setTimeout(() => {
-      IS_AUTO_SCROLLING = false;
-    }, 300);
   }
 
   // Snap to the second image
   if (percentage > 50 && percentage < 150) {
     smoothScrollToPercentage(100, carouselArea, offsetTop);
-    setTimeout(() => {
-      IS_AUTO_SCROLLING = false;
-    }, 300);
   }
 
   // Snap to the third image
   if (percentage > 150 && percentage < 250) {
     smoothScrollToPercentage(200, carouselArea, offsetTop);
-    setTimeout(() => {
-      IS_AUTO_SCROLLING = false;
-    }, 300);
   }
 
   // Snap to the fourth image
   if (percentage > 250 && percentage < 300) {
     smoothScrollToPercentage(300, carouselArea, offsetTop);
-    setTimeout(() => {
-      IS_AUTO_SCROLLING = false;
-    }, 300);
   }
 }
 

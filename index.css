@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -36,7 +40,6 @@ body {
   will-change: transform;
   display: flex;
   align-items: center;
-  transition: transform 0.3s ease;
 }
 
 .lg-range-carousel-area-item {
@@ -137,10 +140,10 @@ body {
   transform: translateY(0);
 }
 
-.lg-range-carousel-area-item.active .spec-item:nth-child(1) { transition-delay: 0.1s; }
-.lg-range-carousel-area-item.active .spec-item:nth-child(2) { transition-delay: 0.2s; }
-.lg-range-carousel-area-item.active .spec-item:nth-child(3) { transition-delay: 0.3s; }
-.lg-range-carousel-area-item.active .spec-item:nth-child(4) { transition-delay: 0.4s; }
+.lg-range-carousel-area-item.active .spec-item:nth-child(1) { transition-delay: 0.3s; }
+.lg-range-carousel-area-item.active .spec-item:nth-child(2) { transition-delay: 0.4s; }
+.lg-range-carousel-area-item.active .spec-item:nth-child(3) { transition-delay: 0.5s; }
+.lg-range-carousel-area-item.active .spec-item:nth-child(4) { transition-delay: 0.6s; }
 
 .spec-label {
   font-size: 14px;
