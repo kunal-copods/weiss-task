@@ -1,4 +1,5 @@
 const lgRangeCarouselStickySection = document.querySelectorAll(".lg-range-carousel-sticky");
+let IS_SCROLL_SNAPPING_ENABLED = true;
 
 // Scroll event listener for the sticky carousel
 window.addEventListener("scroll", (e) => {
@@ -22,6 +23,38 @@ function scrollTransform(section) {
     percentage = 0;
   } else if (percentage > 300) {
     percentage = 300;
+  }
+
+  if(!IS_SCROLL_SNAPPING_ENABLED) {
+    carouselArea.style.transition = "none";
+    carouselArea.style.transform = `translate3d(${-percentage}vw, 0, 0)`;
+
+    const slideIndex = Math.round(percentage / 100);
+    // Active indicator
+    const activeIndicatorEl = document.querySelector(`.indicator-item[data-slide="${slideIndex}"]`);
+    if (!activeIndicatorEl.classList.contains("active")) {
+      activeIndicatorEl.classList.add("active");
+    }
+
+    document.querySelectorAll(".indicator-item").forEach((indicator) => {
+      if (indicator !== activeIndicatorEl) {
+        indicator.classList.remove("active");
+      }
+    });
+
+    // Update active class for carousel items
+    const carouselItems = carouselArea.querySelectorAll('.lg-range-carousel-area-item');
+    carouselItems.forEach((item, index) => {
+      if (index === slideIndex) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+    
+    return;
+  } else {
+    carouselArea.style.transition = "transform 0.3s ease";
   }
   
   // If the carousel is already scrolling, don't scroll again
@@ -74,8 +107,8 @@ function smoothScrollToPercentage(targetPercentage, carouselArea, offsetTop) {
   // Update transform with a smooth transition
   carouselArea.style.transform = `translate3d(${-targetPercentage}vw, 0, 0)`;
 
-
-  const activeIndicatorEl = document.querySelector(`.indicator-item[data-slide="${Math.floor(targetPercentage / 100)}"]`);
+  const slideIndex = Math.floor(targetPercentage / 100);
+  const activeIndicatorEl = document.querySelector(`.indicator-item[data-slide="${slideIndex}"]`);
 
   // Check if the active indicator is already active
   if (!activeIndicatorEl.classList.contains("active")) {
@@ -87,4 +120,23 @@ function smoothScrollToPercentage(targetPercentage, carouselArea, offsetTop) {
       indicator.classList.remove("active");
     }
   });
+
+  // Update active class for carousel items
+  const carouselItems = carouselArea.querySelectorAll('.lg-range-carousel-area-item');
+  carouselItems.forEach((item, index) => {
+    if (index === slideIndex) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
 }
+
+// Toggle scroll snapping
+document.getElementById("toggle-scroll-snapping").addEventListener("click", () => {
+  IS_SCROLL_SNAPPING_ENABLED = !IS_SCROLL_SNAPPING_ENABLED;
+  console.log("Scroll snapping enabled:", IS_SCROLL_SNAPPING_ENABLED);
+
+  // Change the button text
+  document.getElementById("toggle-scroll-snapping").textContent = IS_SCROLL_SNAPPING_ENABLED ? "Disable Scroll Snapping" : "Enable Scroll Snapping";
+});
